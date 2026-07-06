@@ -27,7 +27,7 @@ INF/INFLは十分大きい数で初期化したいときなどに使います。
 ## #define coutY/coutN
 競プロではよく「判定してYesかNoかを出力せよ」という問題が出題されます。こういう問題では最後にある条件を満たせばYes、そうでなければNoとすることが多いので"(条件式) ? coutY : coutN;"と書くことで少し楽ができます。右の書き方を知らない方はAPG4bの3.06を参照してください。
 
-## #difne all(x)
+## #define all(x)
 vectorのsortやreverseのときに使います。vectorのsortは結構出てきます。上のcoutY/coutNもそうですが、そこまで大幅な短縮になるわけではなく個人的にコードがすっきりするので入れているだけです。
 
 ## template chmin/chmax
