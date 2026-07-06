@@ -3,6 +3,8 @@ using namespace std;
 using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
+using PIL = pair<int, long long>;
+using PLI = pair<long long, int>;
 using PL = pair<long long, long long>;
 const string ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string abc = "abcdefghijklmnopqrstuvwxyz";
@@ -12,8 +14,8 @@ const ll INFL = 2e18;
 const int dx[5] = {-1, 0, 1, 0}, dy[5] = {0, 1, 0, -1};
 #define rep0(i, n) for (int i = 0; i < (int)n; i++)
 #define rep1(i, n) for (int i = 1; i <= (int)n; i++)
-#define rrep1(i, n) for (int i = n; i > 0; i--)
 #define rrep0(i, n) for (int i = n - 1; i >= 0; i--)
+#define rrep1(i, n) for (int i = n; i > 0; i--)
 #define el "\n"
 #define coutY cout << "Yes" << el
 #define coutN cout << "No" << el
