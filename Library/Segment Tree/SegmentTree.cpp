@@ -63,46 +63,67 @@ ll modinv(ll x) {
     return modpower(x, mod - 2);
 }
 
-class SegmentTree {
-    public:
-    int siz = 1;
-    long long data[1000000]; //0-indexed
-    const long long INF = 10000000000, INF_minus = -10000000000;
+int e() {return -INF;} //単位元
+int op(int a, int b) {return max(a, b);} //演算
 
-    //clear関数：data配列の初期化
-    int clear(int n) {
+template<class S, S (*op)(S, S), S (*e)()>
+struct SegmentTree {
+    private:
+    int siz = 1;
+    vector<int> data;
+    
+    public:
+    void clear(int n) {
         while (siz < n) siz *= 2;
 
-        rep0(i, 2 * siz) data[i] = 0;
+        data.assign(2 * siz + 1, e());
         return siz;
     }
 
-    //update関数：a_posに対し操作を行う（デフォ：xに変更）
     void update(int pos, long long x) {
         pos += siz - 1;
         data[pos] = x;
 
         while (pos > 1) {
             pos /= 2;
-            data[pos] = max(data[2 * pos], data[2 * pos + 1]);
+            data[pos] = op(data[2 * pos], data[2 * pos + 1]);
         }
 
         return;
     }
 
-    //answer関数：区間[l,r)の配列に対するクエリに答える（デフォ：最大値）
-    //main関数ではL = 1,R = siz + 1, pos = 1とすること
-    long long answer(int l, int r, int L, int R, int pos) {
-        if (l <= L and R <= r) return data[pos];
-        if (R <= l or r <= L) return INF_minus;
-        int m = (L + R) / 2;
-        return max(answer(l, r, L, m, 2 * pos), answer(l, r, m, R, 2 * pos + 1));
+    S answer(int l, int r) {
+        l += siz - 1, r += siz - 1;
+
+        S ansl = e(), ansr = e();
+        while (l < r) {
+            if (l & 1) ansl = op(ansl, data[l++]);
+            if (r & 1) ansr = op(ansr, data[--r]);
+            l >>= 1, r >>= 1;
+        }
+
+        return op(ansl, ansr);
     }
 };
 
-SegmentTree SGT;
+SegmentTree<int, op, e> seg; //intの部分は状況に応じて書き換える
 
-void solve() {
+void sample() {
+    int n, q; cin >> n >> q; //n:配列の要素数,q:クエリ数
+    seg.clear(n); //seg.clear(n):segtreeにおける配列を設定する
+    rep1(i, n) seg.update(i, 0); //seg.update(i, 0):segtreeにおけるdata[i]の要素を0に変更する(加算などの場合は中身を書き換える)
+    while(q--) { //q回繰り返す
+        int type; cin >> type;
+        if (type == 1) {
+            int a, x; cin >> a >> x;
+            seg.update(a, x); //data[a]をxに変更する(加算などの場合は中身を書き換える)
+        }
+        else {
+            int l, r; cin >> l >> r;
+            cout << seg.answer(l, r) << el; //seg.answer(l, r):[l,r)の区間のクエリに答える
+        }
+    }
+
     return;
 }
 
