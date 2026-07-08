@@ -77,7 +77,7 @@ struct SegmentTree {
         while (siz < n) siz *= 2;
 
         data.assign(2 * siz + 1, e());
-        return siz;
+        return;
     }
 
     void update(int pos, long long x) {
@@ -98,7 +98,7 @@ struct SegmentTree {
         S ansl = e(), ansr = e();
         while (l < r) {
             if (l & 1) ansl = op(ansl, data[l++]);
-            if (r & 1) ansr = op(ansr, data[--r]);
+            if (r & 1) ansr = op(data[--r], ansr);
             l >>= 1, r >>= 1;
         }
 
