@@ -111,12 +111,12 @@ SegmentTree<int, op, e> seg; //intの部分は状況に応じて書き換える
 void sample() {
     int n, q; cin >> n >> q; //n:配列の要素数,q:クエリ数
     seg.clear(n); //seg.clear(n):segtreeにおける配列を設定する
-    rep1(i, n) seg.update(i, 0); //seg.update(i, 0):segtreeにおけるdata[i]の要素を0に変更する(加算などの場合は中身を書き換える)
+    rep1(i, n) seg.update(i, 0); //seg.update(i, 0):segtreeにおけるdata[i]の要素を0に変更する
     while(q--) { //q回繰り返す
         int type; cin >> type;
         if (type == 1) {
             int a, x; cin >> a >> x;
-            seg.update(a, x); //data[a]をxに変更する(加算などの場合は中身を書き換える)
+            seg.update(a, x); //data[a]をxに変更する
         }
         else {
             int l, r; cin >> l >> r;
