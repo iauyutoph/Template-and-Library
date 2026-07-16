@@ -63,36 +63,63 @@ ll modinv(ll x) {
     return modpower(x, mod - 2);
 }
 
-class FenwickTree {
+int e() {return 0;} //単位元
+int op(int a, int b) {return a + b;} //演算
+int inv(int a) {return -a;} //逆元
+
+template<class S, S (*op)(S, S), S (*e)(), S (*inv)(S)>
+struct FenwickTree {
     public:
 
     int siz = 1;
-    long long data[1000000]; //1-indexed
+    vector<S> data; //1-indexed
 
-    //clear関数：data配列の初期化
     void clear(int n) {
         siz = n;
-        rep1(i, siz) data[i] = 0;
+        data.assign(siz + 1, e());
         return;
     }
 
-    //add関数：a_posに操作を行う（デフォ：xを加算）
-    void add(int pos, long long x) {
-        for (int i = pos; i <= siz; i += (i & -i)) data[i] += x;
-        return;
-    }
-
-    //answer関数：区間[1,R]の配列に対するクエリに答える（デフォ：総和）
-    long long answer(int R) {
-        long long ans = 0;
-        for (int i = R; i > 0; i -= (i & -i)) ans += data[i];
+    S ans_prefix(int r) {
+        S ans = e();
+        for (int i = r; i > 0; i-= (i & -i)) ans = op(data[i], ans);
         return ans;
+    }
+
+    S answer(int l, int r) {
+        S ans = e();
+        ans = op(ans_prefix(r), ans);
+        ans = op(inv(ans_prefix(l - 1)), ans);
+        return ans;
+    }
+
+    void update(int pos, S x) {
+        S now = answer(pos, pos);
+        for (int i = pos; i <= siz; i += (i & -i)) data[i] = op(data[i], inv(now)), data[i] = op(data[i], x);
+        return;
     }
 };
 
-FenwickTree BIT;
+FenwickTree<int, op, e, inv> BIT; //intは場合に応じて書き換える
 
 void solve() {
+    return;
+}
+
+void sample() {
+    int n, q; cin >> n >> q; //n:配列の大きさ,q:クエリ数
+    BIT.clear(n); //data配列の初期化
+    while (q--) {
+        int type; cin >> type;
+        if (type == 1) {
+            int pos, x; cin >> pos >> x;
+            BIT.update(pos, x); //A[pos]をxに更新
+        }
+        else {
+            int l, r; cin >> l >> r;
+            cout << BIT.answer(l, r - 1) << el; //区間[l,r-1]のクエリに答える
+        }
+    }
     return;
 }
 
@@ -100,6 +127,6 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    
+
     return 0;
 }
