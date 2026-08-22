@@ -30,9 +30,8 @@ using pq_less = priority_queue<T, vector<T>, less<T>>;
 
 //文字cのABC/abc文字列内でのitrを求める
 int char_itr(char c, string ABC_abc) {
-    int ans = 0;
+    int ans = -1;
     rep0(i, 26) if (c == ABC_abc[i]) ans = i;
-    if (ABC_abc[ans] != c) ans = -1;
     return ans;
 }
 
@@ -117,7 +116,7 @@ void sample() {
         }
         else {
             int l, r; cin >> l >> r;
-            cout << BIT.answer(l, r - 1) << el; //区間[l,r-1]のクエリに答える
+            cout << BIT.answer(l, r) << el; //区間[l,r]のクエリに答える
         }
     }
     return;
