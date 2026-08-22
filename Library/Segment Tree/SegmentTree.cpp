@@ -30,9 +30,8 @@ using pq_less = priority_queue<T, vector<T>, less<T>>;
 
 //文字cのABC/abc文字列内でのitrを求める
 int char_itr(char c, string ABC_abc) {
-    int ans = 0;
+    int ans = -1;
     rep0(i, 26) if (c == ABC_abc[i]) ans = i;
-    if (ABC_abc[ans] != c) ans = -1;
     return ans;
 }
 
@@ -68,11 +67,10 @@ int op(int a, int b) {return max(a, b);} //演算
 
 template<class S, S (*op)(S, S), S (*e)()>
 struct SegmentTree {
-    private:
+    public:
     int siz = 1;
     vector<int> data;
     
-    public:
     void clear(int n) {
         while (siz < n) siz *= 2;
 
