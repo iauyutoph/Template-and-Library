@@ -28,15 +28,13 @@ using pq_greater = priority_queue<T, vector<T>, greater<T>>;
 template<typename T> 
 using pq_less = priority_queue<T, vector<T>, less<T>>;
 
-//文字cのABC/abc文字列内でのitrを求める
-int char_itr(char c, string ABC_abc) {
+int char_itr(char c, string ABC_abc) {//文字cのABC/abc文字列内でのitrを求める
     int ans = -1;
     rep0(i, 26) if (c == ABC_abc[i]) ans = i;
     return ans;
 }
 
-//x^nを求める
-ull power(ull x, ull n) {
+ull power(ull x, ull n) {//x^nを求める
     ull ans = 1;
     while (n > 0) {
         if (n & 1) ans *= x;
@@ -46,8 +44,7 @@ ull power(ull x, ull n) {
     return ans;
 }
 
-//x^nをmod998244353で求める
-ull modpower(ull x, ull n) {
+ull modpower(ull x, ull n) {//x^nをmod998244353で求める
     ull ans = 1;
     while (n > 0) {
         if (n & 1) ans = ans * x % mod;
@@ -57,8 +54,7 @@ ull modpower(ull x, ull n) {
     return ans;
 }
 
-//xのmod998244353における逆元を求める
-ll modinv(ll x) {
+ll modinv(ll x) {//xのmod998244353における逆元を求める
     return modpower(x, mod - 2);
 }
 
@@ -71,6 +67,6 @@ int main() {
     cin.tie(nullptr);
     srand((unsigned)time(NULL));
 
-    
+
     return 0;
 }
